@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Teen Activity Hub | Austin, Texas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F6EADD;--card:#FFF8F0;--ink:#3B3818;--olive:#8A8349;--pink:#EBA5A8;--orange:#EFA35C;--teal:#7BBFCD;--yellow:#F8E091;--line:#E3D3BF;--on-accent:#3B3818;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#241F18;--card:#2F2920;--ink:#F6EADD;--line:#4A4033}}
+:root[data-theme="dark"]{--bg:#241F18;--card:#2F2920;--ink:#F6EADD;--line:#4A4033}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.05rem/1.6 Nunito,system-ui,sans-serif}
+h1,h2,h3{font-family:"Patrick Hand","Comic Sans MS",cursive;font-weight:400;line-height:1.1;margin:0 0 .5em}
+h1{font-size:clamp(2.8rem,8vw,5.5rem);color:var(--olive);letter-spacing:.02em}
+h2{font-size:clamp(2rem,5vw,3rem)}h3{font-size:1.6rem}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:2px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+nav{max-width:1100px;margin:auto;padding:.6rem 1rem;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap}
+.logo{font:1.6rem "Patrick Hand",cursive;color:var(--olive);margin-right:auto;text-decoration:none}
+nav a.tab{padding:.4rem .9rem;border-radius:99px;text-decoration:none;font-weight:600}
+nav a.tab[aria-current=page]{background:var(--yellow);color:var(--on-accent)}
+nav a.tab:hover{background:var(--pink);color:var(--on-accent)}
+main{max-width:1100px;margin:auto;padding:1.5rem 1rem 4rem}
+.view{display:none}.view.on{display:block}
+.hero{position:relative;overflow:hidden;border-radius:32px;background:var(--card);padding:clamp(2rem,6vw,5rem) 1.5rem;text-align:center;border:2px solid var(--line)}
+.hero>*{position:relative;z-index:1}.hero p{max-width:34em;margin:0 auto 1.4rem;font-size:1.2rem}
+.hero svg.blobs{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.btn{display:inline-block;border:0;border-radius:99px;padding:.75rem 1.5rem;font:800 1rem Nunito,sans-serif;background:var(--orange);color:var(--on-accent);cursor:pointer;text-decoration:none;margin:.2rem}
+.btn.alt{background:var(--teal)}.btn.ghost{background:transparent;border:2px solid var(--olive);color:var(--ink)}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin:1.5rem 0}
+.card{background:var(--card);border:2px solid var(--line);border-radius:24px;padding:1.3rem}
+.card .dot{width:56px;height:56px;border-radius:44% 56% 50% 50%;display:grid;place-items:center;font-size:1.8rem;margin-bottom:.6rem;color:var(--on-accent)}
+.scene{margin:1.5rem 0;border-radius:28px;overflow:hidden;border:2px solid var(--line)}.scene svg{display:block;width:100%;height:auto}
+.pill{display:inline-block;background:var(--yellow);color:var(--on-accent);border-radius:99px;padding:.1rem .7rem;font-size:.85rem;font-weight:800}
+label{display:block;font-weight:600;margin:.8rem 0 .2rem}
+input,select,textarea{width:100%;padding:.65rem .8rem;border-radius:14px;border:2px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+.row{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.note{font-size:.9rem;opacity:.85}.err{color:#B3261E;font-weight:700}
+.badge{width:300px;max-width:100%;margin:1rem auto;border-radius:24px;overflow:hidden;background:var(--card);border:3px solid var(--olive);text-align:center}
+.badge .top{background:var(--teal);color:var(--on-accent);padding:.6rem;font:1.4rem "Patrick Hand",cursive}
+.badge .body{padding:1rem}.badge svg{width:140px;height:140px;background:#fff;padding:8px;border-radius:12px}
+.chat{display:flex;flex-direction:column;gap:.6rem;max-height:420px;overflow-y:auto;padding:1rem;background:var(--bg);border-radius:18px;border:2px solid var(--line);margin:1rem 0}
+.msg{background:var(--card);border-radius:16px;padding:.6rem .9rem;border-left:6px solid var(--pink)}
+.msg b{color:var(--olive)}.msg small{opacity:.7}.msg button{float:right;background:none;border:0;color:inherit;opacity:.6;cursor:pointer;font-size:.8rem}
+.chans{display:flex;gap:.5rem;flex-wrap:wrap}.chans button[aria-pressed=true]{background:var(--yellow);color:var(--on-accent)}
+.chans button{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:.4rem 1rem;font-weight:800;cursor:pointer}
+footer{border-top:2px solid var(--line);padding:1.5rem 1rem;text-align:center;font-size:.9rem;opacity:.85}
+@media (prefers-reduced-motion:no-preference){.hero h1{animation:pop .7s ease-out}@keyframes pop{from{transform:scale(.94);opacity:0}}}
+</style>
+</head>
+<body>
+<header><nav aria-label="Main">
+<a class="logo" href="#home">Teen Activity Hub</a>
+<a class="tab" href="#about">About</a><a class="tab" href="#rooms">Rooms</a><a class="tab" href="#join">Join &amp; Badge</a><a class="tab" href="#forum">Forum</a><a class="tab" href="#buddy">Study Buddy</a><a class="tab" id="staffTab" href="#staff" hidden>Staff</a>
+</nav></header>
+<main>
+
+<section id="home" class="view">
+<div class="hero">
+<svg class="blobs" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<path d="M-20 -10h140c20 60-10 110-60 120s-80-40-80-120z" fill="#EBA5A8"/>
+<path d="M300-10l60 30 70-30 10 50-50 30-80-10z" fill="#F8E091"/>
+<path d="M560-10h120c10 70-20 100-60 100s-70-40-60-100z" fill="#EFA35C"/>
+<path d="M700-10h120v120c-60 20-110-30-120-120z" fill="#7BBFCD"/>
+<path d="M-20 300c60-40 90 20 110 40s60 60 60 80h-170z" fill="#EFA35C"/>
+<path d="M250 420c20-80 90-90 130-50 40-60 120-70 160 50z" fill="#7BBFCD"/>
+<path d="M700 430c0-60 40-60 70-40s50-10 50-40v100z" fill="#EBA5A8"/>
+<path d="M-10 160l50-20-10 40 40 20-50 10z" fill="#F8E091"/>
+</svg>
+<h1>Teen Activity Hub</h1>
+<p>A free, safe place in Austin, Texas for middle and high school students to unwind, move, make friends, and take a break from screens and schoolwork.</p>
+<a class="btn" href="#join">Sign up &amp; get your badge</a><a class="btn alt" href="#rooms">Explore the rooms</a>
+</div>
+<div class="scene"><svg viewBox="0 0 900 300" role="img" aria-label="Illustration of teens hanging out in the outdoor courtyard under a tree">
+<rect width="900" height="300" fill="#BFE3EA"/><circle cx="780" cy="60" r="36" fill="#F8E091"/>
+<path d="M0 210c150-50 300-30 450-10s300 10 450-20v120H0z" fill="#9CC98A"/><rect y="235" width="900" height="65" fill="#C9E0A8"/>
+<rect x="150" y="110" width="22" height="130" fill="#A06B3F"/><circle cx="161" cy="90" r="70" fill="#7FB36F"/><circle cx="120" cy="120" r="45" fill="#8CC07B"/><circle cx="205" cy="115" r="45" fill="#8CC07B"/>
+<g><circle cx="330" cy="190" r="16" fill="#E8B48A"/><rect x="316" y="205" width="28" height="45" rx="12" fill="#EBA5A8"/>
+<circle cx="400" cy="195" r="16" fill="#C98E64"/><rect x="386" y="210" width="28" height="42" rx="12" fill="#EFA35C"/>
+<circle cx="470" cy="190" r="16" fill="#F2C9A0"/><rect x="456" y="205" width="28" height="45" rx="12" fill="#7BBFCD"/>
+<circle cx="610" cy="170" r="16" fill="#8A5A3B"/><rect x="596" y="185" width="28" height="48" rx="12" fill="#F8E091"/></g>
+<circle cx="680" cy="215" r="20" fill="#EFA35C"/><path d="M660 215h40M680 195v40" stroke="#8A8349" stroke-width="2"/>
+<path d="M740 260v-80M740 185h50v30h-50" stroke="#8A8349" stroke-width="4" fill="#fff"/>
+</svg></div>
+<div class="grid">
+<div class="card"><div class="dot" style="background:var(--pink)">🤝</div><h3>Hang out in person</h3><p>Real conversations, games, and projects with other teens from around Austin.</p></div>
+<div class="card"><div class="dot" style="background:var(--teal)">🌿</div><h3>Step away from school</h3><p>No grades, no homework pressure, no screens required.</p></div>
+<div class="card"><div class="dot" style="background:var(--yellow)">🛡️</div><h3>Students only</h3><p>Every member is verified with a middle or high school ID.</p></div>
+</div>
+<p class="note">Free for students in grades 6 to 12 &middot; Hours: Mon&ndash;Fri 3:00&ndash;8:00 PM, Sat 10:00 AM&ndash;6:00 PM &middot; Austin, TX (sample location)</p>
+</section>
+
+<section id="about" class="view">
+<h2>About us</h2>
+<div class="card"><h3>Our mission</h3><p>Our mission is to create a safe space for teens to get away from academics and technology and just hang out. With so much academic stress and so much technology in everyday life, teens need a place to unwind and relax.</p></div>
+<div class="grid">
+<div class="card"><div class="dot" style="background:var(--orange)">🏀</div><h3>Physical interaction</h3><p>Face-to-face time in a world that is mostly through screens.</p></div>
+<div class="card"><div class="dot" style="background:var(--pink)">🌱</div><h3>Social growth</h3><p>Meet new people, practice teamwork, and build confidence.</p></div>
+<div class="card"><div class="dot" style="background:var(--yellow)">☀️</div><h3>Stepping away from academics</h3><p>A place where being a student comes second to being a teenager.</p></div>
+<div class="card"><div class="dot" style="background:var(--teal)">💪</div><h3>Exercise is good for you</h3><p>Movement lowers stress and boosts mood, and here it feels like play.</p></div>
+</div>
+<div class="card"><h3>How membership works</h3><p>Sign up with your school ID, get your digital badge, and scan it at the front door. A valid middle or high school student ID is required to enter the facility and to use the forum.</p><a class="btn" href="#join">Get your badge</a></div>
+</section>
+
+<section id="rooms" class="view">
+<h2>Rooms &amp; spaces</h2>
+<div class="grid" id="roomGrid"></div>
+<div class="card"><h3>Book a room</h3>
+<div id="bookGate"></div>
+<form id="bookForm" class="row" onsubmit="return false">
+<div><label for="bRoom">Room</label><select id="bRoom"></select></div>
+<div><label for="bDay">Day</label><input id="bDay" type="date"></div>
+<div><label for="bTime">Time</label><select id="bTime"><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option><option>6:00 PM</option><option>7:00 PM</option></select></div>
+<div style="align-self:end"><button class="btn" id="bBtn">Reserve (1 hour)</button></div>
+</form><p id="bMsg" role="status"></p></div>
+</section>
+
+<section id="join" class="view">
+<h2>Join &amp; get your badge</h2>
+<div id="joinForm" class="card">
+<p>Open to students in grades 6 to 12. Your ID is used only to confirm you are a current student.</p>
+<form id="signup" onsubmit="return false">
+<div class="row">
+<div><label for="fn">First name and last initial</label><input id="fn" required maxlength="30" autocomplete="off"></div>
+<div><label for="gr">Grade</label><select id="gr"><option value="">Choose</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select></div>
+<div><label for="sc">School</label><input id="sc" required maxlength="60" placeholder="Example: Lake Travis Middle School"></div>
+<div><label for="em">Your email</label><input id="em" type="email" required autocomplete="email"></div><div><label for="pw">Password (8+ characters)</label><input id="pw" type="password" minlength="8" autocomplete="new-password"></div>
+</div>
+<label for="idf">Photo of your school ID</label><input id="idf" type="file" accept="image/*">
+<label for="par">Parent or guardian email</label><input id="par" type="email" required>
+<label><input type="checkbox" id="agree" style="width:auto"> I agree to the community rules, and my parent or guardian knows I am signing up.</label>
+<p id="jErr" class="err" role="alert"></p>
+<button class="btn" id="jBtn">Verify &amp; create badge</button>
+</form></div>
+<div id="signinBox" class="card" style="margin-top:1rem"><h3>Already a member? Sign in</h3><div class="row"><div><label for="si_em">Email</label><input id="si_em" type="email" autocomplete="email"></div><div><label for="si_pw">Password</label><input id="si_pw" type="password" autocomplete="current-password"></div></div><p id="siErr" class="err" role="alert"></p><button class="btn alt" id="siBtn">Sign in</button></div>
+<div id="badgeBox" hidden></div>
+</section>
+
+<section id="forum" class="view">
+<h2>Teen forum</h2>
+<div id="forumGate"></div>
+<div id="forumBox" hidden>
+<div class="chans" id="chans"></div>
+<div class="chat" id="chat" aria-live="polite"></div>
+<form id="postForm" class="row" onsubmit="return false" style="grid-template-columns:1fr auto">
+<input id="postText" maxlength="280" placeholder="Say something kind&hellip;" aria-label="Message">
+<button class="btn" id="postBtn">Send</button></form>
+<p class="note">Never share your address, phone number, or social media. Tap Report on anything that feels wrong. Staff review all reports.</p>
+</div>
+</section>
+
+<section id="buddy" class="view">
+<h2>Study buddy program</h2>
+<p>Pair up with another Hub member to study together at the Quiet Room. Pick a subject and a time, and we will show matches. Use the Study Buddy channel in the forum to chat.</p>
+<div id="buddyGate"></div>
+<div id="buddyBox" hidden>
+<div class="card"><form id="bForm" onsubmit="return false"><div class="row">
+<div><label for="bs">Subject</label><select id="bs"><option>Math</option><option>Science</option><option>English</option><option>History</option><option>Spanish</option><option>Other</option></select></div>
+<div><label for="bt">Best time</label><select id="bt"><option>Weekday afternoons</option><option>Weekday evenings</option><option>Saturdays</option></select></div>
+</div><button class="btn" id="bSign">Sign me up</button></form></div>
+<h3 style="margin-top:1.5rem">Teens looking for a buddy</h3><div class="grid" id="buddyList"></div>
+<p><a class="btn alt" href="#forum" id="toStudy">Open the Study Buddy chat</a></p>
+</div>
+</section>
+
+<section id="staff" class="view"><h2>Staff desk</h2><div id="staffBox" hidden>
+<h3>Waiting for approval</h3><p class="note">Match the ID photo to the name and school. For students under 13, email the parent to confirm before approving.</p><div id="pending"></div>
+<h3>Check a badge</h3><div class="row" style="grid-template-columns:1fr auto"><input id="chk" placeholder="Scan or paste badge code" aria-label="Badge code"><button class="btn" id="chkBtn">Check</button></div><p id="chkOut" role="status"></p>
+<h3>Reported messages</h3><div id="reps"></div></div></section>
+</main>
+<footer>Teen Activity Hub is a fictional facility created for an FCCLA Hospitality, Tourism, and Recreation project. Not a real location.</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {getFirestore,doc,getDoc,setDoc,updateDoc,deleteDoc,addDoc,collection,query,where,orderBy,limit,onSnapshot,getDocs,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+// PASTE your Firebase config here (Project settings > Your apps > Web app)
+const firebaseConfig={apiKey:"PASTE_API_KEY",authDomain:"PASTE_AUTH_DOMAIN",projectId:"PASTE_PROJECT_ID",appId:"PASTE_APP_ID"};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),fs=getFirestore(app);
+const $=s=>document.querySelector(s);
+let me=null,user=null,curChan='general',unsub=null;
+const ROOMS=[
+['🎨','Craft Room','var(--pink)','Painting, friendship bracelets, clay, and DIY projects. Supplies provided.',''],
+['📚','Quiet Room &amp; Study Center','var(--teal)','Calm space for homework and reading with individual rooms you can book.','Bookable'],
+['🏀','Courts &amp; Athletic Studios','var(--orange)','Basketball court plus other athletic games, with individual studios you can book.','Bookable'],
+['🎤','Auditorium','var(--yellow)','Guest speakers on careers, creativity, health, and life after school.',''],
+['🎯','Game Room','var(--pink)','Foosball, air hockey, ping pong, and board games.',''],
+['💬','Talk Circles','var(--teal)','Small-group conversations about mental health led by trained staff and counselors.',''],
+['🧸','Open Space','var(--yellow)','A relaxed lounge with a Take One, Leave One fidget box.',''],
+['🌳','Outdoor Courtyard','var(--orange)','Shaded seating, a garden, and room to play outside.',''],
+['🥪','The Snack Spot','var(--pink)','Affordable snacks, smoothies, and light meals made fresh.','']];
+const BOOKABLE=['Quiet Room: Study Room A','Quiet Room: Study Room B','Court: Basketball (half court)','Athletic Studio 1','Athletic Studio 2'];
+
+const rg=$('#roomGrid');
+ROOMS.forEach(r=>{const c=document.createElement('div');c.className='card';
+c.innerHTML=`<div class="dot" style="background:${r[2]}">${r[0]}</div><h3>${r[1]}</h3><p>${r[3]}</p>${r[4]?'<span class="pill">'+r[4]+'</span>':''}`;rg.appendChild(c)});
+BOOKABLE.forEach(b=>{const o=document.createElement('option');o.textContent=b;$('#bRoom').appendChild(o)});
+
+
+
+const gate=m=>`<div class="card"><p>${m}</p><a class="btn" href="#join">Go to sign up / sign in</a></div>`;
+const ok=()=>!!me&&me.status==='approved';
+const staff=()=>!!me&&me.role==='staff';
+const el=(t,txt,cls)=>{const e=document.createElement(t);if(txt!==undefined)e.textContent=txt;if(cls)e.className=cls;return e};
+async function loadMe(){me=null;if(user){const s=await getDoc(doc(fs,'profiles',user.uid));if(s.exists())me={id:s.id,...s.data()}}}
+const shrink=f=>new Promise((res,rej)=>{const i=new Image();i.onload=()=>{const k=Math.min(1,900/Math.max(i.width,i.height));const c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;c.getContext('2d').drawImage(i,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',.6))};i.onerror=()=>rej(new Error('That file is not a readable image.'));i.src=URL.createObjectURL(f)});
+
+function showJoin(){const b=$('#badgeBox');$('#joinForm').hidden=!!me;$('#signinBox').hidden=!!me;b.hidden=!me;if(!me)return;b.innerHTML='';
+ const w=el('div');
+ if(ok()){const q=qrcode(0,'M');q.addData(me.badgeCode);q.make();
+  w.innerHTML=`<div class="badge"><div class="top">Teen Activity Hub</div><div class="body"><img alt="Badge scan code" width="140" height="140" src="${q.createDataURL(6,0)}"><h3 id="bn"></h3><p id="bd" class="note"></p><span class="pill">Verified student</span></div></div><p style="text-align:center">Scan this badge at the front door.</p>`}
+ else w.innerHTML='<div class="card"><h3>Almost there</h3><p id="st"></p></div>';
+ b.appendChild(w);
+ if(ok()){$('#bn').textContent=me.name;$('#bd').textContent=`Grade ${me.grade} · ${me.school}`}
+ else $('#st').textContent=me.status==='rejected'?'Staff could not verify your ID. Please visit the front desk for help.':'Your ID photo is waiting for staff review. Check back soon.';
+ const o=el('p');o.style.textAlign='center';const ob=el('button','Sign out','btn ghost');ob.onclick=async()=>{await signOut(auth);location.hash='#home'};o.appendChild(ob);b.appendChild(o)}
+
+$('#jBtn').onclick=async()=>{const e=$('#jErr'),f=$('#idf').files[0];
+ const v={name:$('#fn').value.trim(),grade:$('#gr').value,school:$('#sc').value.trim(),parentEmail:$('#par').value.trim()};
+ const em=$('#em').value.trim(),pw=$('#pw').value;
+ if(!v.name||!v.grade||!v.school)return e.textContent='Fill in your name, grade, and school.';
+ if(!em.includes('@')||pw.length<8)return e.textContent='Enter your email and a password of 8+ characters.';
+ if(!v.parentEmail.includes('@'))return e.textContent='Enter a parent or guardian email.';
+ if(!f)return e.textContent='Attach a photo of your school ID.';
+ if(!$('#agree').checked)return e.textContent='Please agree to the community rules.';
+ try{e.textContent='Creating your account…';
+  const img=await shrink(f);
+  const cr=await createUserWithEmailAndPassword(auth,em,pw);const uid=cr.user.uid;
+  await setDoc(doc(fs,'profiles',uid),{...v,status:'pending',role:'student',badgeCode:crypto.randomUUID(),createdAt:serverTimestamp()});
+  await setDoc(doc(fs,'idphotos',uid),{img,createdAt:serverTimestamp()});
+  e.textContent='';user=cr.user;render()}
+ catch(x){e.textContent=x.message}};
+$('#siBtn').onclick=async()=>{try{await signInWithEmailAndPassword(auth,$('#si_em').value.trim(),$('#si_pw').value);$('#siErr').textContent=''}catch(x){$('#siErr').textContent='Email or password is not right.'}};
+
+$('#bDay').min=new Date().toISOString().slice(0,10);
+$('#bBtn').onclick=async()=>{const m=$('#bMsg');if(!ok())return;if(!$('#bDay').value){m.textContent='Choose a day.';return}
+ const r=$('#bRoom').value,d=$('#bDay').value,t=$('#bTime').value;
+ try{await setDoc(doc(fs,'bookings',(r+'_'+d+'_'+t).replace(/[^A-Za-z0-9-]/g,'_')),{uid:user.uid,room:r,day:d,slot:t,createdAt:serverTimestamp()});m.textContent=`Booked: ${r} on ${d} at ${t}.`}
+ catch(x){m.textContent='That slot is already booked. Try another time.'}};
+
+const chanList=[['general','General'],['study','Study Buddy']];
+function startChat(){const cs=$('#chans');cs.innerHTML='';
+ chanList.forEach(([k,l])=>{const b=el('button',l);b.setAttribute('aria-pressed',k===curChan);b.onclick=()=>{curChan=k;startChat()};cs.appendChild(b)});
+ if(unsub)unsub();
+ unsub=onSnapshot(query(collection(fs,'channels',curChan,'messages'),orderBy('createdAt','desc'),limit(100)),snap=>{
+  const c=$('#chat');c.innerHTML='';const list=snap.docs.reverse();if(!list.length)c.textContent='No messages yet. Start the conversation.';
+  list.forEach(d=>{const p=d.data();const row=el('div',undefined,'msg');
+   const rb=el('button','Report');rb.onclick=async()=>{await addDoc(collection(fs,'reports'),{channel:curChan,messageId:d.id,name:p.name,body:p.body,reporter:user.uid,createdAt:serverTimestamp()});rb.textContent='Reported';rb.disabled=true};
+   row.append(rb,el('b',p.name),el('div',p.body));c.appendChild(row)});c.scrollTop=c.scrollHeight})}
+const BAD=/\b(address|phone number|snap|insta)\b/i;
+$('#postBtn').onclick=async()=>{const t=$('#postText').value.trim();if(!t||!ok())return;
+ if(BAD.test(t)){alert('For your safety, please do not share personal contact info.');return}
+ try{await addDoc(collection(fs,'channels',curChan,'messages'),{uid:user.uid,name:me.name,body:t,createdAt:serverTimestamp()});$('#postText').value=''}catch(x){alert(x.message)}};
+$('#toStudy').onclick=()=>{curChan='study'};
+
+async function drawBuddies(){const s=await getDocs(query(collection(fs,'buddies'),orderBy('createdAt','desc')));const l=$('#buddyList');l.innerHTML='';
+ s.forEach(d=>{const b=d.data();const c=el('div',undefined,'card');c.append(el('h3',b.name),el('p',`Grade ${b.grade} · ${b.subject} · ${b.slot}`));l.appendChild(c)})}
+$('#bSign').onclick=async()=>{if(!ok())return;
+ await setDoc(doc(fs,'buddies',user.uid),{name:me.name,grade:me.grade,subject:$('#bs').value,slot:$('#bt').value,createdAt:serverTimestamp()});drawBuddies()};
+
+async function loadStaff(){const p=$('#pending');p.textContent='Loading…';
+ const s=await getDocs(query(collection(fs,'profiles'),where('status','==','pending')));p.innerHTML='';if(s.empty)p.textContent='No one is waiting.';
+ for(const d of s.docs){const u=d.data();const c=el('div',undefined,'card');c.append(el('h3',u.name),el('p',`Grade ${u.grade} · ${u.school} · Parent: ${u.parentEmail}`));
+  const ph=await getDoc(doc(fs,'idphotos',d.id));
+  if(ph.exists()){const im=el('img');im.src=ph.data().img;im.alt='Student ID photo';im.style.cssText='max-width:100%;border-radius:12px';c.append(im)}
+  const row=el('p');[['Approve','approved'],['Reject','rejected']].forEach(([l,st])=>{const b=el('button',l,'btn'+(st==='rejected'?' ghost':''));
+   b.onclick=async()=>{await updateDoc(doc(fs,'profiles',d.id),{status:st});if(ph.exists())await deleteDoc(doc(fs,'idphotos',d.id));loadStaff()};row.append(b)});c.append(row);p.append(c)}
+ const rs=await getDocs(query(collection(fs,'reports'),orderBy('createdAt','desc')));const r=$('#reps');r.innerHTML='';if(rs.empty)r.textContent='No reports.';
+ rs.forEach(d=>{const x=d.data();const c=el('div',undefined,'card');c.append(el('p',x.name+': '+x.body));
+  const del=el('button','Delete message','btn');del.onclick=async()=>{try{await deleteDoc(doc(fs,'channels',x.channel,'messages',x.messageId))}catch(e){}await deleteDoc(doc(fs,'reports',d.id));loadStaff()};
+  const k=el('button','Dismiss','btn ghost');k.onclick=async()=>{await deleteDoc(doc(fs,'reports',d.id));loadStaff()};c.append(del,k);r.append(c)})}
+$('#chkBtn').onclick=async()=>{const s=await getDocs(query(collection(fs,'profiles'),where('badgeCode','==',$('#chk').value.trim())));
+ if(s.empty){$('#chkOut').textContent='Badge not found.';return}
+ const u=s.docs[0].data();$('#chkOut').textContent=u.status==='approved'?`OK to enter: ${u.name}, grade ${u.grade}`:`Not approved (${u.status}): ${u.name}`};
+
+async function render(){let v=(location.hash||'#home').slice(1);
+ if(![...document.querySelectorAll('.view')].map(x=>x.id).includes(v))v='home';
+ document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id===v));
+ document.querySelectorAll('nav a.tab').forEach(a=>a.getAttribute('href')==='#'+v?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
+ try{await loadMe()}catch(x){me=null}
+ const msg=me?'Your account is waiting for staff approval. Check the Join &amp; Badge tab.':'Sign in with your verified student account.';
+ $('#staffTab').hidden=!staff();$('#staffBox').hidden=!staff();
+ $('#forumGate').innerHTML=ok()?'':gate(msg);$('#forumBox').hidden=!ok();
+ $('#buddyGate').innerHTML=ok()?'':gate(msg);$('#buddyBox').hidden=!ok();
+ $('#bookGate').innerHTML=ok()?'':'<p class="note">Sign in with a verified account to book rooms.</p>';$('#bookForm').hidden=!ok();
+ if(v==='join')showJoin();
+ if(ok()&&v==='forum')startChat();else if(unsub){unsub();unsub=null}
+ if(ok()&&v==='buddy')drawBuddies();
+ if(staff()&&v==='staff')loadStaff();
+ window.scrollTo(0,0)}
+addEventListener('hashchange',render);
+onAuthStateChanged(auth,u=>{user=u;render()});
+</script>
+</body>
+</html>
